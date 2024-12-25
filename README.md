@@ -31,22 +31,29 @@ Ensure the following are installed:
 
 2. **SETUP**
     - Build Docker 
+    ```bash
     docker-compose build
 
     - Up Docker
+    ```bash
     docker-compose up 
 
     - Down Docker
+    ```bash
     docker-compose down
 
     - Check Docker
-    docker ps
+   ```bash
+     docker ps
 
     - Enter the terminal
+    ```bash
     docker exec -it django_app bash
 
     - Migrate Database
+    ```bash
     python manage.py makemigrations
 
     - Apply Migration
+    ```bash
     python manage.py migrate
