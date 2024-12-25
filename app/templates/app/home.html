@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Network Traffic Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        button, select, input[type="file"] {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 500px;
+            margin: 20px auto;
+            display: block;
+        }
+        .status {
+            font-size: 14px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Network Traffic Analyzer</h1>
+
+    <!-- Section 1: Check PCAP File -->
+    <div class="section">
+        <h2>Analyze PCAP File</h2>
+        <p>Upload a PCAP file to analyze network activity:</p>
+        <input type="file" id="pcap-file" />
+        <button id="upload-file">Upload & Analyze</button>
+        <p>Or analyze a recent file:</p>
+        <select id="recent-files">
+            <option value="">Select File</option>
+            {% for file in recent_files %}
+                <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </select>
+        <button id="analyze-file">Analyze</button>
+        <div id="analysis-result" class="status"></div>
+    </div>
+
+    <div class="section">
+        <h2>Analysis Results</h2>
+        <p>Total Bandwidth: <span id="bandwidth"></span> Mbps</p>
+        <h3>Top Communicators</h3>
+        <table id="top-communicators">
+            <tr>
+                <th>Source IP</th>
+                <th>Destination IP</th>
+                <th>Packet Count</th>
+            </tr>
+        </table>
+        <h3>Graphs</h3>
+        <img src="/static/protocol_distribution.png" alt="Protocol Distribution">
+        <img src="/static/bandwidth_usage.png" alt="Bandwidth Usage">
+        <img src="/static/ip_matrix.png" alt="Communication Matrix">
+    </div>
+    
+    <!-- Section 2: Capture Network Traffic -->
+    <div class="section">
+        <h2>Capture PCAP File</h2>
+        <p>Capture live network traffic:</p>
+        <select id="interfaces">
+            <option value="">Select Interface</option>
+            {% for interface in interfaces %}
+                <option value="{{ interface }}">{{ interface }}</option>
+            {% endfor %}
+        </select>
+        <button id="generate-pcap">Capture Traffic</button>
+        <div id="capture-status" class="status"></div>
+    </div>
+
+    <script>
+        // Upload & Analyze PCAP File
+        document.getElementById("upload-file").addEventListener("click", async () => {
+            const status = document.getElementById("analysis-result");
+            const fileInput = document.getElementById("pcap-file");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                status.textContent = "Error: No file selected.";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("pcap_file", file);
+
+            status.textContent = "Uploading and analyzing PCAP file...";
+
+            try {
+                const response = await fetch("/upload-pcap/", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                const result = await response.json();
+
+                // Display Results
+                status.textContent = result.message || result.error;
+                if (result.port_scan_suspects) {
+                    status.innerHTML += `<pre>Port Scan Suspects: ${JSON.stringify(result.port_scan_suspects, null, 2)}</pre>`;
+                }
+                if (result.graph_path) {
+                    status.innerHTML += `<img src="${result.graph_path}" alt="Traffic Graph" />`;
+                }
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // Analyze Recent File
+        document.getElementById("analyze-file").addEventListener("click", async () => {
+            const selectedFile = document.getElementById("recent-files").value;
+            const status = document.getElementById("analysis-result");
+
+            if (!selectedFile) {
+                alert("Please select a file to analyze.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/analyze-pcap/?file=${selectedFile}`);
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                const result = await response.json();
+
+                status.innerHTML = `<p>${result.message}</p>`;
+                if (result.port_scan_suspects) {
+                    status.innerHTML += `<pre>${JSON.stringify(result.port_scan_suspects, null, 2)}</pre>`;
+                }
+                if (result.graph_path) {
+                    status.innerHTML += `<img src="${result.graph_path}" alt="Traffic Graph" />`;
+                }
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // Capture PCAP File
+        document.getElementById("generate-pcap").addEventListener("click", async () => {
+            const interface = document.getElementById("interfaces").value;
+            const status = document.getElementById("capture-status");
+
+            if (!interface) {
+                status.textContent = "Error: Please select an interface.";
+                return;
+            }
+
+            status.textContent = "Capturing network traffic...";
+
+            try {
+                const response = await fetch("/generate-pcap/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({ interface }),
+                });
+
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                const result = await response.json();
+
+                status.textContent = result.message || result.error;
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

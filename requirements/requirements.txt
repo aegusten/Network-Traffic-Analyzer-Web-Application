@@ -1,0 +1,8 @@
+Django==4.2.5
+pytz
+sqlparse
+django-bootstrap4
+scapy
+matplotlib
+pyshark
+pandas
