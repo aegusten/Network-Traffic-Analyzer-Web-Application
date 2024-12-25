@@ -30,30 +30,24 @@ Ensure the following are installed:
    cd Network-Traffic-Analyzer-Web-Application
 
 2. **SETUP**
-    - Build Docker 
     ```bash
+    - Build Docker 
     docker-compose build
 
     - Up Docker
-    ```bash
     docker-compose up 
 
     - Down Docker
-    ```bash
     docker-compose down
 
     - Check Docker
-   ```bash
      docker ps
 
     - Enter the terminal
-    ```bash
     docker exec -it django_app bash
 
     - Migrate Database
-    ```bash
     python manage.py makemigrations
 
     - Apply Migration
-    ```bash
     python manage.py migrate
