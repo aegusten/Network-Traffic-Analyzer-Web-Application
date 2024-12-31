@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Data</title>
+</head>
+<body>
+
+{% autoescape false %}
+
+{% if maildata['maildate'] %}
+Date: {{ maildata['maildate'] }} </br>
+{% else %}
+Date: unknown </br>
+{% endif %}
+
+{% if maildata['username'] %}
+Username: {{ maildata['username'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Username: unknown </br>
+{% endif %}
+
+{% if maildata['password'] %}
+Password: {{ maildata['password'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Password: unknown </br>
+{% endif %}
+
+{% if maildata['mailfrom'] %}
+Sender: {{ maildata['mailfrom'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Sender: unknown </br>
+{% endif %}
+
+{% if maildata['mailto'] %}
+Recipient: {{ maildata['mailto'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Recipient: unknown </br>
+{% endif %}
+
+{% if maildata['mailcc'] %}
+CC: {{ maildata['mailcc'].replace('<', '&lt;').replace('>', '&gt;').replace('\r\n', '</br>') }} </br>
+{% else %}
+CC: none </br>
+{% endif %}
+
+{% if maildata['mailmessageid'] %}
+Mail ID: {{ maildata['mailmessageid'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Mail ID: unknown </br>
+{% endif %}
+************************************************** </br>
+{% if maildata['mailsubject'] %}
+Subject: {{ maildata['mailsubject'].replace('<', '&lt;').replace('>', '&gt;') }} </br>
+{% else %}
+Subject: unknown </br>
+{% endif %}
+************************************************** </br>
+{% if maildata['mailcontent'] %}
+Content: {{ maildata['mailcontent'].replace('<', '&lt;').replace('>', '&gt;').replace('\r\n', '</br>') }} </br>
+{% else %}
+Content: none </br>
+{% endif %}
+************************************************** </br>
+{% if maildata['attachs_dict'] %}
+Attachments: </br>
+{% for filename, filedata in maildata['attachs_dict'].items() %}
+    <a href="{{ url_for('maildata') }}?filename={{ filename }}&id={{ dataid }} ">{{ filename }} </a></br>
+{% endfor %}
+{% else %}
+Attachments: none </br>
+{% endif %}
+{% endautoescape %}
+
+</body>
+</html>

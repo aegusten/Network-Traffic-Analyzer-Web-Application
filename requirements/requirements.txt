@@ -1,8 +1,15 @@
+Flask==2.2.5
+Flask-WTF>=1.1.1
+Werkzeug>=2.2.2
 Django==4.2.5
 pytz
 sqlparse
 django-bootstrap4
-scapy
-matplotlib
+scapy==2.4.5
 pyshark
+geoip2==4.6.0
+matplotlib
 pandas
+pyx==0.15.0
+requests==2.31.0
+gunicorn==20.1.0
