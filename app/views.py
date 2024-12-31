@@ -17,23 +17,21 @@ from scapy.all import rdpcap
 import os
 import hashlib
 
-# Import functions into templates
+
 app.jinja_env.globals['enumerate'] = enumerate
 
-# Global variables
-PCAP_NAME = ''  # Uploaded file name
-PD = PcapDecode()  # Packet decoder
-PCAPS = None  # Packet data
 
-#--------------------------------------------------------Home Page and Upload------------
-# Home Page
+PCAP_NAME = '' 
+PD = PcapDecode()
+PCAPS = None 
+
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/index/', methods=['POST', 'GET'])
 def index():
     return render_template('./home/index.html')
 
 
-# Packet Upload
+
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():
     filepath = app.config['UPLOAD_FOLDER']

@@ -1,7 +1,7 @@
 bind = '0.0.0.0:8000'
-workers = 3  
+workers = 3 
 backlog = 2048
-debug = False 
-proc_name = 'gunicorn.pid'
-pidfile = '/var/log/gunicorn/debug.log'
-loglevel = 'info' 
+loglevel = 'info'
+pidfile = '/var/log/gunicorn/gunicorn.pid'
+accesslog = '/var/log/gunicorn/access.log'
+errorlog = '/var/log/gunicorn/error.log'
