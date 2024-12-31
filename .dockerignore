@@ -1,0 +1,17 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Ignore environment and virtualenv files
+.env
+venv/
+
+# Ignore log files and unnecessary data
+*.log
+uploads/
+logs/
+
+# Git files
+.git
+.gitignore
