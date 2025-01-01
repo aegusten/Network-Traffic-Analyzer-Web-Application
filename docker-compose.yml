@@ -5,13 +5,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: flask_app
+    container_name: Netbox-Container
     ports:
       - "8000:8000"
     volumes:
       - ./uploads:/app/uploads
       - ./logs:/app/logs
       - ./staticfiles:/app/staticfiles
+      - ./templates:/app/templates
     environment:
       FLASK_DEBUG: 1
       UPLOAD_FOLDER: /app/uploads
