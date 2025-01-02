@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
 
@@ -70,10 +70,6 @@
 				<!-- BEGIN LOGO -->
 
 				<a class="brand" href="{{url_for('index')}}">
-				   <!--
-
-				   <img src="media/image/logo.png" alt="logo"/>
-				   -->
 				   &nbsp;&nbsp;Pcap Analyzer
 
 				</a>
@@ -89,8 +85,6 @@
 				</a>
 
 				<!-- END RESPONSIVE MENU TOGGLER -->
-
-				<!-- END TOP NAVIGATION MENU -->
 
 			</div>
 
@@ -136,7 +130,7 @@
 
 					<i class="icon-home"></i> 
 
-					<span class="title">首页</span>
+					<span class="title">Home</span>
 
 					<span class="selected"></span>
 
@@ -145,262 +139,74 @@
 				</li>
 
 				<li class="">
-
 					<a href="javascript:;">
-				
 					<i class="icon-bar-chart"></i>
-				
 					<span class="title">Data Analysis</span>
-				
 					<span class="arrow "></span>
-				
 					</a>
-				
 					<ul class="sub-menu">
-				
-						<li >
+						<li>
 							<a href="{{ url_for('basedata') }}" target="main-content">
 							   Basic Information
 							</a>
 						</li>
-						<li >
+						<li>
 							<a href="{{ url_for('protoanalyzer') }}"  target="main-content">
 							  Protocol Analysis
 							</a>
 						</li>
-						<li >
+						<li>
 							<a href="{{ url_for('flowanalyzer') }}"  target="main-content">
 							  Traffic Analysis
 							</a>
 						</li>
-						<li >
+						<li>
 							<a href="{{ url_for('ipmap') }}"  target="main-content">
 							  Access Map
 							</a>
 						</li>
 					</ul>
-				
 				</li>
-				<li class="">
-				
-					<a href="javascript:;">
-				
-					<i class="icon-eye-open"></i>
-				
-					<span class="title">Data Extraction</span>
-				
-					<span class="arrow "></span>
-				
-					</a>
-				
-					<ul class="sub-menu">
-				
-						<li>
-							<a href="{{ url_for('webdata') }}" target="main-content">
-							   Web Data
-							</a>
-						</li>
-				
-						<li>
-							<a href="{{ url_for('maildata') }}"  target="main-content">
-							  Mail Data
-							</a>
-						</li>
-				
-						<li>
-							<a href="{{ url_for('ftpdata') }}"  target="main-content">
-							  FTP Data
-							</a>
-						</li>
-				
-						<li>
-							<a href="{{ url_for('telnetdata') }}"  target="main-content">
-							  Telnet Data
-							</a>
-						</li>
-				
-						<li>
-							<a href="{{ url_for('clientinfo') }}"  target="main-content">
-							  Client Information
-							</a>
-						</li>
-				
-						<li>
-							<a href="{{ url_for('sendata') }}"  target="main-content">
-							  Sensitive Data
-							</a>
-						</li>
-				
-					</ul>
-				
-				</li>
-				<li class="">
-				
-					<a href="javascript:;">
-				
-					<i class="icon-warning-sign"></i>
-				
-					<span class="title">Exception Information</span>
-				
-					<span class="arrow "></span>
-				
-					</a>
-				
-					<ul class="sub-menu">
-				
-						<li >
-				
-							<a href="{{ url_for('exceptinfo') }}" target="main-content">
-							   Exception Warnings
-							</a>
-						</li>
-				
-					</ul>
-				
-				</li>
-				<li class="">
-				
-					<a href="javascript:;">
-				
-					<i class="icon-download-alt"></i>
-				
-					<span class="title">File Extraction</span>
-				
-					<span class="arrow "></span>
-				
-					</a>
-				
-					<ul class="sub-menu">
-				
-						<li >
-				
-							<a href="{{ url_for('webfile') }}" target="main-content">
-							   Web Files
-							</a>
-				
-						</li>
-				
-						<li >
-				
-							<a href="{{ url_for('mailfile') }}" target="main-content">
-							   Mail Files
-							</a>
-				
-						</li>
-				
-						<li >
-				
-							<a href="{{ url_for('ftpfile') }}" target="main-content">
-							   FTP Files
-							</a>
-				
-						</li>
-				
-						<li >
-				
-							<a href="{{ url_for('allfile') }}" target="main-content">
-							   All Files
-							</a>
-				
-						</li>
-				
-					</ul>
-				
-				</li>
-				
+			</ul>
 
-<!--
-                <li class="">
+			<!-- END SIDEBAR MENU -->
 
-					<a href="javascript:;">
+		</div>
 
-					<i class="icon-download-alt"></i>
+		<!-- END SIDEBAR -->
 
-					<span class="title">System Settings</span>
+		<!-- BEGIN PAGE -->
+		<div class="page-content" id="div-content">
+			<iframe class="main-content" src="{{url_for('upload')}}" name="main-content" scrolling="auto"></iframe>
+		</div>
+		<!-- END PAGE -->
+	</div>
 
-					<span class="arrow "></span>
+	<!-- END CONTAINER -->
 
-					</a>
+	<!-- BEGIN FOOTER -->
 
-					<ul class="sub-menu">
+	<div class="footer">
 
-						<li >
+		<div class="footer-inner">
 
-							<a href="{{ url_for('webfile') }}" target="main-content">
-							   Protocol Settings
-							</a>
+			NO FOOTER.
 
-						</li>
-
-						<li >
-
-							<a href="{{ url_for('mailfile') }}" target="main-content">
-							   Extraction Settings
-							</a>
-
-						</li>
-
-						<li >
-
-							<a href="{{ url_for('ftpfile') }}" target="main-content">
-							   Policy Configuration
-							</a>
-
-						</li>
-
-					</ul>
-
-				</li>
-
--->
-</ul>
-
-<!-- END SIDEBAR MENU -->
-
-</div>
-
-<!-- END SIDEBAR -->
-
-<!-- BEGIN PAGE -->
-<div class="page-content" id="div-content">
-<!--<iframe name="main-content" id="iframe-content" src="upload.html" frameborder="0" scrolling="auto"></iframe>-->
-<iframe class="main-content" src="{{url_for('upload')}}" name="main-content" scrolling="auto"></iframe>
-</div>
-<!-- END PAGE -->
-</div>
-
-
-<!-- END CONTAINER -->
-
-<!-- BEGIN FOOTER -->
-
-<div class="footer">
-
-	<div class="footer-inner">
-
-		NO FOOTER.
+		</div>
 
 	</div>
 
-</div>
-
-
 	<!-- END FOOTER -->
 
-	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-
-	<!-- BEGIN CORE PLUGINS -->
+	<!-- BEGIN JAVASCRIPTS -->
 
 	<script src="../../static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
 
 	<script src="../../static/media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 
-	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-
 	<script src="../../static/media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 
 	<script src="../../static/media/js/bootstrap.min.js" type="text/javascript"></script>
-
 
 	<script src="../../static/media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
 
@@ -410,43 +216,19 @@
 
 	<script src="../../static/media/js/jquery.uniform.min.js" type="text/javascript" ></script>
 
-	<!-- END CORE PLUGINS -->
-
-
-	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-
 	<script src="../../static/media/js/app.js" type="text/javascript"></script>
 
 	<script src="../../static/media/js/index.js" type="text/javascript"></script>
 
-	<!-- END PAGE LEVEL SCRIPTS -->  
-
 	<script>
-
 		jQuery(document).ready(function() {    
-
-		   App.init(); // initlayout and core plugins
-
-		   //Index.init();
-
-
+		   App.init();
 		});
-
 	</script>
 
 	<!-- END JAVASCRIPTS -->
-<!--
-	<script type="text/javascript">
-		function iframechange() {
-			var width = document.getElementsByClassName("page-content").width();
-			var height = document.getElementsByClassName("page-content").height();
-			document.getElementById("iframe-content").width = width;
-			document.getElementById("iframe-content").height = height;
-			console.log(height);
-		}
-		document.getElementsByClassName("page-content").onresize = iframechange();
-	</script>-->
-  </body>
+
+</body>
 
 <!-- END BODY -->
 
